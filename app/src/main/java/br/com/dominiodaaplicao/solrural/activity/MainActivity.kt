@@ -1,10 +1,11 @@
-package br.com.dominiodaaplicao.solrural
+package br.com.dominiodaaplicao.solrural.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import br.com.dominiodaaplicao.solrural.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
