@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SolRural</string>
+    <string name="ler_sobre_texto">A Sol Rural tem como objetivo aproveitar as superfícies dos terrenos utilizados pela agricultura familiar no Nordeste, onde essa prática é amplamente difundida, para a geração de energia solar.
+A energia gerada será utilizada pelos próprios produtores para alimentar tecnologias de irrigação inteligente, além de sistemas de captação e dessalinização de água.
+ Ao integrar a produção agrícola com painéis solares, a Sol Rural não apenas otimiza o uso dos recursos naturais, mas também fornece energia limpa e acessível, fortalecendo a autonomia dos pequenos agricultores e promovendo a sustentabilidade e o desenvolvimento das comunidades rurais.
+Essa solução promove o crescimento econômico e a inclusão social no Nordeste, aproveitando o vasto potencial de energia solar da região para transformar desafios em oportunidades de desenvolvimento sustentável.
+</string>
 </resources>
