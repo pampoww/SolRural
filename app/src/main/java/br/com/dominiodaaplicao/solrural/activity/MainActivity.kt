@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val setaLerSobre: ImageView = findViewById(R.id.setaLerSobre)
 
         Picasso.get()
-            .load(R.drawable.sol_rural)
+            .load(R.drawable.sol_rural_logo)
             .resize(400, 170)
             .centerInside()
             .into(logoImageView)
