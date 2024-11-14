@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,6 +44,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.cardview)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
     implementation (libs.picasso)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
