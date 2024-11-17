@@ -20,6 +20,9 @@
         <activity android:name=".activity.PatrocinadoresActivity" />
         <activity android:name=".activity.CadastrarActivity"/>
         <activity android:name=".activity.PerfilActivity"/>
+        <activity android:name=".activity.EditarActivity" />
+        <activity android:name=".activity.ExcluirActivity" />
+
 
 
         <activity
