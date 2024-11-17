@@ -1,5 +1,6 @@
 package br.com.dominiodaaplicao.solrural.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -63,7 +64,10 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("Firebase", "signInWithEmail:success")
                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                    // Navigate to the next activity (e.g., your main activity)
+
+                    val intent = Intent(this, PerfilActivity::class.java)
+                    startActivity(intent)
+                    finish()
 
                 } else {
                     Log.w("Firebase", "signInWithEmail:failure", task.exception)

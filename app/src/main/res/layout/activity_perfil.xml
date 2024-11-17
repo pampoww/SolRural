@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PerfilActivity">
+    android:layout_height="match_parent">
 
+    <!-- Top Bar -->
     <View
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -24,31 +23,58 @@
         android:layout_marginTop="16dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@drawable/seta_esquerda"
+        android:contentDescription="Botão de Voltar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Mensagem de Agradecimento -->
 
     <TextView
         android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:text="Perfil"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/topBar"
-        app:layout_constraintEnd_toEndOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="@id/topBar"
-        app:layout_constraintTop_toTopOf="@id/topBar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/mensagemAgradecimentoTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Obrigada por se inscrever, em breve entraremos em contato."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Mensagem de Preenchimento do Formulário -->
+    <TextView
+        android:id="@+id/mensagemFormularioTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Preencha o formulário abaixo para obtermos mais informações da sua produção agrícola."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/mensagemAgradecimentoTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Formulário de Entrada -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintTop_toBottomOf="@id/mensagemFormularioTextView"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,66 +82,94 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Campo para Itens Cultivados -->
             <TextView
-                android:id="@+id/uidTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UID:"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/uidValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/itensCultivadosTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Itens Cultivados:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/itensCultivadosValueTextView"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/itensCultivadosEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                android:hint="Ex: Milho, Feijão"
+                android:inputType="text" />
 
+            <!-- Campo para Tamanho da Propriedade -->
             <TextView
-                android:id="@+id/tamanhoDaPropriedadeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tamanho da Propriedade:"
+                android:text="Tamanho da Propriedade (em hectares):"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
 
+            <EditText
+                android:id="@+id/tamanhoDaPropriedadeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ex: 10"
+                android:inputType="numberDecimal" />
+
+            <!-- Campo para Quantidade de Safras por Ano -->
             <TextView
-                android:id="@+id/tamanhoDaPropriedadeValueTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/quantidadeDeSafrasPorAnoTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quantidade de Safras por Ano:"
+                android:text="Safras por Ano:"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
 
-            <TextView
-                android:id="@+id/quantidadeDeSafrasPorAnoValueTextView"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/quantidadeDeSafrasPorAnoEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                android:hint="Ex: 2"
+                android:inputType="number" />
 
-            <!-- Adicione outros elementos da interface do usuário conforme necessário -->
+            <!-- Botão para Salvar as Informações -->
+            <Button
+                android:id="@+id/salvarButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvar Informações"
+                android:textAllCaps="false"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/verde_pastel"
+                android:textColor="@color/white" />
+
+            <!-- LinearLayout para os Botões de Editar e Excluir -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="32dp">
+
+                <!-- Botão Editar -->
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Editar informações"
+                    android:backgroundTint="@color/verde_pastel"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Botão Excluir -->
+                <Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Excluir informações"
+                    android:backgroundTint="@color/verde_pastel"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

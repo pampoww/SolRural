@@ -1,6 +1,6 @@
 package br.com.dominiodaaplicao.solrural.element
 
-data class Usuario(
+data class Fazendas(
     val uid: String = "",
     val itensCultivados: String = "",
     val tamanhoDaPropriedade: String = "",
