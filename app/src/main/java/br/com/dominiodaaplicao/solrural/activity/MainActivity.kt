@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
         cardParteDoProjeto.setOnClickListener {
 
-            val intent = Intent(this, PatrocinadoresActivity::class.java)
+            val intent = Intent(this, BeneficiosActivity::class.java)
             startActivity(intent)
         }
 

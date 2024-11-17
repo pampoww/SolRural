@@ -1,28 +1,25 @@
 package br.com.dominiodaaplicao.solrural.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import br.com.dominiodaaplicao.solrural.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var registerButton: Button
-
+    private lateinit var entrarButton: Button
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var backButton: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +29,15 @@ class LoginActivity : AppCompatActivity() {
 
         emailEditText = findViewById(R.id.email)
         passwordEditText = findViewById(R.id.password)
-        registerButton = findViewById(R.id.registerButton)
+        entrarButton = findViewById(R.id.entrarButton)
+        backButton = findViewById(R.id.backButton)
 
-        val backButton: ImageButton = findViewById(R.id.backButton)
 
         backButton.setOnClickListener {
             finish()
         }
 
-        registerButton.setOnClickListener {
+        entrarButton.setOnClickListener {
             signInWithEmailAndPassword()
         }
     }
@@ -49,21 +46,19 @@ class LoginActivity : AppCompatActivity() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
-
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+            emailEditText.error = "Por favor, insira seu email"
             return
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter your password", Toast.LENGTH_SHORT).show()
+            passwordEditText.error = "Por favor, insira sua senha"
             return
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task: Task<AuthResult> ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("Firebase", "signInWithEmail:success")
-                    Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this, PerfilActivity::class.java)
                     startActivity(intent)
@@ -71,7 +66,20 @@ class LoginActivity : AppCompatActivity() {
 
                 } else {
                     Log.w("Firebase", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+
+                    val exception = task.exception
+                    val errorMessage =  when(exception?.message){
+                        "The email address is badly formatted." -> "Formato de e-mail inválido."
+                        "There is no user record corresponding to this identifier. The user may have been deleted." -> "Nenhum usuário encontrado para este e-mail. Verifique se o e-mail está correto."
+                        "The user's credential is no longer valid. The user must sign in again." -> "Credenciais inválidas. Faça login novamente."
+                        else ->  "Erro de autenticação. Verifique suas credenciais."
+
+                    }
+
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+
+                    passwordEditText.text.clear()
+
                 }
             }
     }

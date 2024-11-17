@@ -1,5 +1,6 @@
 package br.com.dominiodaaplicao.solrural.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -7,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dominiodaaplicao.solrural.R
 import br.com.dominiodaaplicao.solrural.element.Fazendas
@@ -16,71 +18,53 @@ class PerfilActivity : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var usuarioRef: DatabaseReference
+    private lateinit var itensCultivadosEditText: EditText
+    private lateinit var tamanhoDaPropriedadeEditText: EditText
+    private lateinit var quantidadeDeSafrasEditText: EditText
+    private lateinit var itensCultivadosTextView: TextView
+    private lateinit var tamanhoDaPropriedadeTextView: TextView
+    private lateinit var quantidadeDeSafrasTextView: TextView
+    private lateinit var salvarButton: Button
+    private lateinit var editButton: Button
+    private lateinit var deleteButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
-
         database = FirebaseDatabase.getInstance()
         val uidDoUsuario = "uid_do_usuario"
         usuarioRef = database.getReference("usuarios").child(uidDoUsuario)
 
+        itensCultivadosEditText = findViewById(R.id.itensCultivadosEditText)
+        tamanhoDaPropriedadeEditText = findViewById(R.id.tamanhoDaPropriedadeEditText)
+        quantidadeDeSafrasEditText = findViewById(R.id.quantidadeDeSafrasPorAnoEditText)
 
-        val itensCultivadosEditText = findViewById<EditText>(R.id.itensCultivadosEditText)
-        val tamanhoDaPropriedadeEditText = findViewById<EditText>(R.id.tamanhoDaPropriedadeEditText)
-        val quantidadeDeSafrasEditText = findViewById<EditText>(R.id.quantidadeDeSafrasPorAnoEditText)
+        itensCultivadosTextView = findViewById(R.id.itensCultivadosTextView)
+        tamanhoDaPropriedadeTextView = findViewById(R.id.tamanhoDaPropriedadeTextView)
+        quantidadeDeSafrasTextView = findViewById(R.id.quantidadeDeSafrasPorAnoTextView)
 
-        val itensCultivadosTextView = findViewById<TextView>(R.id.itensCultivadosTextView)
-        val tamanhoDaPropriedadeTextView = findViewById<TextView>(R.id.tamanhoDaPropriedadeTextView)
-        val quantidadeDeSafrasTextView = findViewById<TextView>(R.id.quantidadeDeSafrasPorAnoTextView)
-
-        val salvarButton = findViewById<Button>(R.id.salvarButton)
-        val editButton = findViewById<Button>(R.id.editButton)
-        val deleteButton = findViewById<Button>(R.id.deleteButton)
+        salvarButton = findViewById(R.id.salvarButton)
+        editButton = findViewById(R.id.editButton)
+        deleteButton = findViewById(R.id.deleteButton)
         val backButton = findViewById<ImageButton>(R.id.backButton)
+
+
+
         backButton.setOnClickListener {
             finish()
         }
 
-
-
-        itensCultivadosTextView.visibility = View.GONE
-        tamanhoDaPropriedadeTextView.visibility = View.GONE
-        quantidadeDeSafrasTextView.visibility = View.GONE
-
-        editButton.visibility = View.GONE
-        deleteButton.visibility = View.GONE
-
-
         usuarioRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val usuario = snapshot.getValue(Fazendas::class.java)
+                mostrarModoEdicao(usuario == null)
+
                 if (usuario != null) {
                     itensCultivadosTextView.text = "Itens Cultivados: ${usuario.itensCultivados}"
                     tamanhoDaPropriedadeTextView.text = "Tamanho da Propriedade: ${usuario.tamanhoDaPropriedade} hectares"
                     quantidadeDeSafrasTextView.text = "Safras por Ano: ${usuario.quantidadeDeSafrasPorAno}"
-
-
-                    itensCultivadosEditText.visibility = View.GONE
-                    tamanhoDaPropriedadeEditText.visibility = View.GONE
-                    quantidadeDeSafrasEditText.visibility = View.GONE
-                    salvarButton.visibility = View.GONE
-
-                    itensCultivadosTextView.visibility = View.VISIBLE
-                    tamanhoDaPropriedadeTextView.visibility = View.VISIBLE
-                    quantidadeDeSafrasTextView.visibility = View.VISIBLE
-                    editButton.visibility = View.VISIBLE
-                    deleteButton.visibility = View.VISIBLE
-
-
-                } else {
-
-                    itensCultivadosEditText.visibility = View.VISIBLE
-                    tamanhoDaPropriedadeEditText.visibility = View.VISIBLE
-                    quantidadeDeSafrasEditText.visibility = View.VISIBLE
-                    salvarButton.visibility = View.VISIBLE
-
                 }
             }
 
@@ -88,7 +72,6 @@ class PerfilActivity : AppCompatActivity() {
                 Toast.makeText(this@PerfilActivity, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
             }
         })
-
 
         salvarButton.setOnClickListener {
             val itensCultivados = itensCultivadosEditText.text.toString()
@@ -105,6 +88,7 @@ class PerfilActivity : AppCompatActivity() {
             usuarioRef.setValue(usuario).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Informações salvas com sucesso!", Toast.LENGTH_SHORT).show()
+                    mostrarModoEdicao(false)
                 } else {
                     Toast.makeText(this, "Erro ao salvar informações.", Toast.LENGTH_SHORT).show()
                 }
@@ -112,35 +96,76 @@ class PerfilActivity : AppCompatActivity() {
         }
 
         editButton.setOnClickListener {
+            mostrarModoEdicao(true)
 
-            itensCultivadosEditText.visibility = View.VISIBLE
-            tamanhoDaPropriedadeEditText.visibility = View.VISIBLE
-            quantidadeDeSafrasEditText.visibility = View.VISIBLE
-            salvarButton.visibility = View.VISIBLE
-
-
-            itensCultivadosTextView.visibility = View.GONE
-            tamanhoDaPropriedadeTextView.visibility = View.GONE
-            quantidadeDeSafrasTextView.visibility = View.GONE
-            editButton.visibility = View.GONE
-            deleteButton.visibility = View.GONE
-
-            itensCultivadosEditText.setText(itensCultivadosTextView.text.toString().replace("Itens Cultivados: ", ""))
-            tamanhoDaPropriedadeEditText.setText(tamanhoDaPropriedadeTextView.text.toString().replace("Tamanho da Propriedade: ", "").replace(" hectares", ""))
-            quantidadeDeSafrasEditText.setText(quantidadeDeSafrasTextView.text.toString().replace("Safras por Ano: ", ""))
 
         }
 
         deleteButton.setOnClickListener {
-            usuarioRef.removeValue().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Toast.makeText(this, "Informações excluídas com sucesso!", Toast.LENGTH_SHORT).show()
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Confirmar Exclusão")
+            builder.setMessage("Tem certeza que deseja excluir estas informações?")
 
 
-                } else {
-                    Toast.makeText(this, "Erro ao excluir informações.", Toast.LENGTH_SHORT).show()
+            builder.setPositiveButton("Sim") { dialog, which ->
+
+                usuarioRef.removeValue().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Informações excluídas com sucesso!", Toast.LENGTH_SHORT).show()
+
+                        itensCultivadosEditText.text.clear()
+                        tamanhoDaPropriedadeEditText.text.clear()
+                        quantidadeDeSafrasEditText.text.clear()
+                        itensCultivadosTextView.text = ""
+                        tamanhoDaPropriedadeTextView.text = ""
+                        quantidadeDeSafrasTextView.text = ""
+
+                        mostrarModoEdicao(true)
+
+                    } else {
+                        Toast.makeText(this, "Erro ao excluir informações.", Toast.LENGTH_SHORT).show()
+                    }
                 }
+                dialog.dismiss()
             }
+
+            builder.setNegativeButton("Não") { dialog, which ->
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+
         }
+    }
+
+    private fun mostrarModoEdicao(emEdicao: Boolean) {
+        val visibilidadeEdicao = if (emEdicao) View.VISIBLE else View.GONE
+        val visibilidadeExibicao = if (emEdicao) View.GONE else View.VISIBLE
+
+        itensCultivadosEditText.visibility = visibilidadeEdicao
+        tamanhoDaPropriedadeEditText.visibility = visibilidadeEdicao
+        quantidadeDeSafrasEditText.visibility = visibilidadeEdicao
+        salvarButton.visibility = visibilidadeEdicao
+
+        itensCultivadosTextView.visibility = visibilidadeExibicao
+        tamanhoDaPropriedadeTextView.visibility = visibilidadeExibicao
+        quantidadeDeSafrasTextView.visibility = visibilidadeExibicao
+        editButton.visibility = visibilidadeExibicao
+        deleteButton.visibility = visibilidadeExibicao
+
+        if (emEdicao) {
+            itensCultivadosEditText.setText(extrairValor(itensCultivadosTextView.text.toString(), "Itens Cultivados: "))
+            tamanhoDaPropriedadeEditText.setText(extrairValor(tamanhoDaPropriedadeTextView.text.toString(), "Tamanho da Propriedade: ").replace(" hectares", ""))
+            quantidadeDeSafrasEditText.setText(extrairValor(quantidadeDeSafrasTextView.text.toString(), "Safras por Ano: "))
+        }
+    }
+
+
+    private fun extrairValor(texto: String, prefixo: String): String {
+        val regex = Regex("$prefixo(.*)")
+        val matchResult = regex.find(texto)
+        return matchResult?.groupValues?.getOrNull(1)?.trim() ?: ""
     }
 }

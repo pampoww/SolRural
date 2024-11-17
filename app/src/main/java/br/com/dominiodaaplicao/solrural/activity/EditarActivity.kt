@@ -1,5 +1,6 @@
 package br.com.dominiodaaplicao.solrural.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -35,7 +36,7 @@ class EditarActivity : AppCompatActivity() {
 
         val backButton: ImageButton = findViewById(R.id.backButton)
         backButton.setOnClickListener {
-            onBackPressed()
+            finish()
         }
 
         carregarDadosDoFirebase()
