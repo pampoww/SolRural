@@ -43,8 +43,8 @@ class CadastrarActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (password.length != 6 || !password.all { it.isDigit() }) {
-                Toast.makeText(this, "A senha deve conter 6 dígitos", Toast.LENGTH_SHORT).show()
+            if (password.length < 6) {
+                Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
