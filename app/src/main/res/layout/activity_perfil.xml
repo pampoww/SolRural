@@ -88,7 +88,7 @@
                 android:id="@+id/itensCultivadosEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ex: Milho, Feijão"
+                android:hint="Itens cultivados - Ex: Milho, Feijão"
                 android:inputType="text" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:id="@+id/tamanhoDaPropriedadeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ex: 10"
+                android:hint="Tamanho da propriedade em hectares - Ex: 10"
                 android:inputType="numberDecimal" />
 
             <TextView
@@ -118,7 +118,7 @@
                 android:id="@+id/quantidadeDeSafrasPorAnoEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ex: 2"
+                android:hint="safras por ano - Ex: 2"
                 android:inputType="number" />
 
             <Button
