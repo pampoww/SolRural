@@ -27,7 +27,7 @@
 
 
     <TextView
-        android:id="@+id/pageTitle"
+        android:id="@+id/titulo"
         android:layout_width="238dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
         android:layout_marginEnd="32dp" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/senha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -74,14 +74,14 @@
         android:layout_marginEnd="32dp" />
 
     <Button
-        android:id="@+id/entrarButton"
+        android:id="@+id/entrarBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Entrar"
         android:backgroundTint="@color/verde_pastel"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/senha"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="32dp"

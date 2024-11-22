@@ -19,7 +19,7 @@ class EditarActivity : AppCompatActivity() {
     private lateinit var itensCultivadosEditText: EditText
     private lateinit var tamanhoDaPropriedadeEditText: EditText
     private lateinit var quantidadeDeSafrasEditText: EditText
-    private lateinit var salvarButton: Button
+    private lateinit var salvarBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +32,16 @@ class EditarActivity : AppCompatActivity() {
         itensCultivadosEditText = findViewById(R.id.itensCultivadosEditText)
         tamanhoDaPropriedadeEditText = findViewById(R.id.tamanhoDaPropriedadeEditText)
         quantidadeDeSafrasEditText = findViewById(R.id.safrasPorAno)
-        salvarButton = findViewById(R.id.saveButton)
+        salvarBtn = findViewById(R.id.salvarBtn)
 
-        val backButton: ImageButton = findViewById(R.id.backButton)
+        val backButton: ImageButton = findViewById(R.id.voltarBtn)
         backButton.setOnClickListener {
             finish()
         }
 
         carregarDadosDoFirebase()
 
-        salvarButton.setOnClickListener {
+        salvarBtn.setOnClickListener {
             val itensCultivados = itensCultivadosEditText.text.toString()
             val tamanhoPropriedade = tamanhoDaPropriedadeEditText.text.toString()
             val quantidadeSafras = quantidadeDeSafrasEditText.text.toString()

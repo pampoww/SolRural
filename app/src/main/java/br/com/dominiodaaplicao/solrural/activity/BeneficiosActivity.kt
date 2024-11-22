@@ -16,11 +16,11 @@ class BeneficiosActivity : AppCompatActivity() {
 
 
         val imageView: ImageView = findViewById(R.id.contentImage)
-        val backButton: ImageButton = findViewById(R.id.backButton)
+        val voltarBtn: ImageButton = findViewById(R.id.voltarBtn)
         val textView: TextView = findViewById(R.id.contentText)
 
 
-        backButton.setOnClickListener{
+        voltarBtn.setOnClickListener{
             finish()
         }
 

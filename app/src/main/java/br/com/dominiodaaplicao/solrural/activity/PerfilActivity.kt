@@ -24,9 +24,9 @@ class PerfilActivity : AppCompatActivity() {
     private lateinit var itensCultivadosTextView: TextView
     private lateinit var tamanhoDaPropriedadeTextView: TextView
     private lateinit var quantidadeDeSafrasTextView: TextView
-    private lateinit var salvarButton: Button
-    private lateinit var editButton: Button
-    private lateinit var deleteButton: Button
+    private lateinit var salvarBtn: Button
+    private lateinit var editBtn: Button
+    private lateinit var deletarBtn: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,14 +45,13 @@ class PerfilActivity : AppCompatActivity() {
         tamanhoDaPropriedadeTextView = findViewById(R.id.tamanhoDaPropriedadeTextView)
         quantidadeDeSafrasTextView = findViewById(R.id.quantidadeDeSafrasPorAnoTextView)
 
-        salvarButton = findViewById(R.id.salvarButton)
-        editButton = findViewById(R.id.editButton)
-        deleteButton = findViewById(R.id.deleteButton)
-        val backButton = findViewById<ImageButton>(R.id.backButton)
+        salvarBtn = findViewById(R.id.salvarBtn)
+        editBtn = findViewById(R.id.editBtn)
+        deletarBtn = findViewById(R.id.deletarBtn)
+        val voltarBtn = findViewById<ImageButton>(R.id.voltarBtn)
 
 
-
-        backButton.setOnClickListener {
+        voltarBtn.setOnClickListener {
             finish()
         }
 
@@ -73,7 +72,7 @@ class PerfilActivity : AppCompatActivity() {
             }
         })
 
-        salvarButton.setOnClickListener {
+        salvarBtn.setOnClickListener {
             val itensCultivados = itensCultivadosEditText.text.toString()
             val tamanhoPropriedade = tamanhoDaPropriedadeEditText.text.toString()
             val quantidadeSafras = quantidadeDeSafrasEditText.text.toString()
@@ -95,20 +94,19 @@ class PerfilActivity : AppCompatActivity() {
             }
         }
 
-        editButton.setOnClickListener {
+        editBtn.setOnClickListener {
             mostrarModoEdicao(true)
-
 
         }
 
-        deleteButton.setOnClickListener {
+        deletarBtn.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Confirmar Exclusão")
             builder.setMessage("Tem certeza que deseja excluir estas informações?")
 
 
-            builder.setPositiveButton("Sim") { dialog, which ->
+            builder.setPositiveButton("Sim") { dialog, _ ->
 
                 usuarioRef.removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -130,7 +128,7 @@ class PerfilActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
 
-            builder.setNegativeButton("Não") { dialog, which ->
+            builder.setNegativeButton("Não") { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -147,13 +145,13 @@ class PerfilActivity : AppCompatActivity() {
         itensCultivadosEditText.visibility = visibilidadeEdicao
         tamanhoDaPropriedadeEditText.visibility = visibilidadeEdicao
         quantidadeDeSafrasEditText.visibility = visibilidadeEdicao
-        salvarButton.visibility = visibilidadeEdicao
+        salvarBtn.visibility = visibilidadeEdicao
 
         itensCultivadosTextView.visibility = visibilidadeExibicao
         tamanhoDaPropriedadeTextView.visibility = visibilidadeExibicao
         quantidadeDeSafrasTextView.visibility = visibilidadeExibicao
-        editButton.visibility = visibilidadeExibicao
-        deleteButton.visibility = visibilidadeExibicao
+        editBtn.visibility = visibilidadeExibicao
+        deletarBtn.visibility = visibilidadeExibicao
 
         if (emEdicao) {
             itensCultivadosEditText.setText(extrairValor(itensCultivadosTextView.text.toString(), "Itens Cultivados: "))

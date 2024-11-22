@@ -15,8 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var entrarButton: Button
+    private lateinit var senhaEditText: EditText
+    private lateinit var entrarBtn: Button
     private lateinit var mAuth: FirebaseAuth
     private lateinit var backButton: ImageButton
 
@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         emailEditText = findViewById(R.id.email)
-        passwordEditText = findViewById(R.id.password)
-        entrarButton = findViewById(R.id.entrarButton)
+        senhaEditText = findViewById(R.id.senha)
+        entrarBtn = findViewById(R.id.entrarBtn)
         backButton = findViewById(R.id.backButton)
 
 
@@ -37,21 +37,21 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        entrarButton.setOnClickListener {
+        entrarBtn.setOnClickListener {
             signInWithEmailAndPassword()
         }
     }
 
     private fun signInWithEmailAndPassword() {
         val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString().trim()
+        val password = senhaEditText.text.toString().trim()
 
         if (TextUtils.isEmpty(email)) {
             emailEditText.error = "Por favor, insira seu email"
             return
         }
         if (TextUtils.isEmpty(password)) {
-            passwordEditText.error = "Por favor, insira sua senha"
+            senhaEditText.error = "Por favor, insira sua senha"
             return
         }
 
@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
 
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
 
-                    passwordEditText.text.clear()
+                    senhaEditText.text.clear()
 
                 }
             }

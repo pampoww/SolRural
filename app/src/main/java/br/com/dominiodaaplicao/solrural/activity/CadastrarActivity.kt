@@ -24,31 +24,31 @@ class CadastrarActivity : AppCompatActivity() {
 
         val nomeEditText = findViewById<EditText>(R.id.nome)
         val emailEditText = findViewById<EditText>(R.id.email)
-        val passwordEditText = findViewById<EditText>(R.id.password)
-        val registerButton = findViewById<Button>(R.id.registerButton)
+        val senhaEditText = findViewById<EditText>(R.id.senha)
+        val registrarBtn = findViewById<Button>(R.id.registrarBtn)
 
-        val backButton: ImageButton = findViewById(R.id.backButton)
+        val voltarBtn: ImageButton = findViewById(R.id.voltarBtn)
 
-        backButton.setOnClickListener {
+        voltarBtn.setOnClickListener {
             finish()
         }
 
-        registerButton.setOnClickListener {
+        registrarBtn.setOnClickListener {
             val nome = nomeEditText.text.toString()
             val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
+            val senha = senhaEditText.text.toString()
 
-            if (nome.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (password.length < 6) {
+            if (senha.length < 6) {
                 Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val user = task.result?.user
